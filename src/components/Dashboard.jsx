@@ -4,6 +4,7 @@ export default function Dashboard() {
   const baseUrl = useMemo(() => import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000', [])
   const [tab, setTab] = useState('leads')
   const [data, setData] = useState([])
+  const tabs = ['leads','chats','bookings','tickets','payments','sms','calls']
 
   useEffect(() => {
     fetch(`${baseUrl}/${tab}`)
@@ -32,8 +33,8 @@ export default function Dashboard() {
           <button onClick={downloadCsv} className="px-4 py-2 rounded bg-orange-500 text-white">Export CSV</button>
         </div>
 
-        <div className="mt-6 flex gap-2">
-          {['leads','chats','bookings','tickets','payments'].map(k => (
+        <div className="mt-6 flex gap-2 flex-wrap">
+          {tabs.map(k => (
             <button key={k} onClick={() => setTab(k)} className={`px-3 py-1.5 rounded border ${tab===k ? 'bg-white text-slate-900' : 'bg-slate-800 text-white border-white/10'}`}>
               {k}
             </button>
